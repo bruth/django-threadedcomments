@@ -13,8 +13,8 @@ class ThreadedComment(Comment):
         related_name='children', verbose_name=_('Parent'))
     last_child = models.ForeignKey('self', null=True, blank=True,
         verbose_name=_('Last child'))
-    tree_path = models.TextField(_('Tree path'), editable=False,
-        db_index=True)
+    tree_path = models.CharField(_('Tree path'), editable=False,
+        db_index=True, max_length=255)
 
     objects = CommentManager()
 
