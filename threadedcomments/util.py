@@ -26,16 +26,21 @@ def annotate_tree_properties(comments):
     """
     if not comments:
         return
-
+    commment_id_memoization = []
+    
     it = iter(comments)
 
     # get the first item, this will fail if no items !
     old = it.next()
-
+    commment_id_memoization.append(old.id)
     # first item starts a new thread
     old.open = True
     last = set()
     for c in it:
+        if c.id in commment_id_memoization:
+            continue
+        else:
+            commment_id_memoization.append(c.id)
         # if this comment has a parent, store its last child for future reference
         if old.last_child_id:
             last.add(old.last_child_id)
