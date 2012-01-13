@@ -15,6 +15,7 @@ class ThreadedComment(Comment):
         verbose_name=_('Last child'))
     tree_path = models.CharField(_('Tree path'), editable=False,
         db_index=True, max_length=255)
+    rank = models.IntegerField(_('Rank'), null=True)
 
     objects = CommentManager()
 
@@ -50,7 +51,7 @@ class ThreadedComment(Comment):
             tree_path=self.tree_path)
 
     class Meta(object):
-        ordering = ('tree_path',)
+        ordering = ('tree_path', 'rank')
         db_table = 'threadedcomments_comment'
         verbose_name = _('Threaded comment')
         verbose_name_plural = _('Threaded comments')
